@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edson Barber</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="imagens/Google-Noto-Emoji-Travel-Places-42527-barber-pole.512.png" type="image/image.pngimage.pngx-icon">
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery-3.6.3.min.js"></script>
+
+</head>
+<body>       
+    <div class="content">  
+        <form id="form" action="/index" method="POST">       
+            <img src="imagens/logo s fundo200px.png" alt="logo-barbearia" id="logo">         
+            <div id="cliente">
+                <h1>Dados do Cliente</h1>
+                <div>
+                    <p>Nome:</p>
+                    <input type="text" id="nome" placeholder="Nome e Sobrenome" class="inputs required" oninput="validarNome()" name="nome">
+                    <span class="span-required">Nome deve conter no mínimo 3 caracteres</span>
+                </div>
+                <div>
+                    <p>Whatsapp:</p>
+                    <input type="tel" id="telefone" placeholder="DDD + número" class="inputs required" oninput="validarTelefone()" maxlength="15" name="telefone">
+                    <span class="span-required">Digite um número válido</span>
+                </div>
+                <button type="button" onclick="validarBotao()">Avançar</button>
+            </div>
+            <div id="barbeiro">
+                <h1>Escolha um dos profissionais abaixo:</h1>
+                <div>               
+                    <input class="input-radio" type="radio" id="edson" name="opcao" onclick="escolherBarbeiro()" value="Edson Araújo">
+                    <label for="edson" class="selecionado"><img src="imagens/Edson200px.png" class="imagem-barbeiro" alt="imagem de Edson"> <p class="nome-barbeiro">Edson Araujo</p></label>        
+                </div>
+                <div>
+                    <input class="input-radio" type="radio" id="edilson" name="opcao" onclick="escolherBarbeiro()" value="Edilson Araújo">
+                    <label for="edilson" class="selecionado"><img src="imagens/Edilson200px.jpg" class="imagem-barbeiro" alt="imagem de Edilson"> <p class="nome-barbeiro">Edilson Araujo</p>
+                    </label>
+                </div>
+                <div>
+                    <input class="input-radio" type="radio" id="bruno" name="opcao" onclick="escolherBarbeiro()" value="Bruno Luiz">
+                    <label for="bruno" class="selecionado"><img src="imagens/bruno200px.png" class="imagem-barbeiro" alt="imagem de Bruno"> <p class="nome-barbeiro">Bruno Luiz</p>
+                    </label>
+                </div>
+                <div class="botoes">
+                    <button type="button" onclick="voltarCliente()">Voltar</button>
+                    <button type="button" id="botao-barbeiro" onclick="avancarServico()">Avançar</button>
+                </div>
+            </div>
+            <div id="servico">
+                <div class="listaServicos">        
+                    <h1>Escolha o serviço</h1>
+                    <table>
+                        <tr>
+                            <th>CORTES</th>
+                            <th>PREÇO</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="label-borda" for="0">
+                                    <input id="0" onclick="escolherServico('18')" class="input-radio" type="radio" name="servico" value="Corte Clássico">
+                                    CORTE CLÁSSICO
+                                </label>
+                            </td>
+                            <td>
+                                <label class="label-borda">                                    
+                                     R$ 18,00
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="label-borda" for="1"> 
+                                    <input id="1" onclick="escolherServico('20')" class="input-radio" type="radio" name="servico" value="Corte Navalhado">
+                                    CORTE NAVALHADO
+                                </label>
+                            </td>
+                            <td>
+                                <label class="label-borda">                                    
+                                    R$ 20,00
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="label-borda" for="2">
+                                    <input id="2" onclick="escolherServico('25')" class="input-radio" type="radio" name="servico" value="Corte Tesoura">
+                                    CORTE TESOURA
+                                </label>
+                            </td>
+                            <td>
+                                <label class="label-borda">                                    
+                                    R$ 25,00
+                                </label>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="label-borda" for="3">
+                                    <input id="3" onclick="escolherServico('24')" class="input-radio" type="radio" name="servico" value="Corte Clássico + Tesoura">
+                                    CORTE CLÁSSICO + TESOURA
+                                </label>
+                            </td>
+                            <td>
+                                <label class="label-borda">                                    
+                                    R$ 24,00
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="label-borda" for="4">
+                                    <input id="4" onclick="escolherServico('28')" class="input-radio" type="radio" name="servico" value="Corte Clássico + Barba">
+                                    CORTE CLÁSSICO + BARBA
+                                </label>
+                            </td>
+                            <td>
+                                <label class="label-borda">                                    
+                                    R$ 28,00
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="label-borda" for="5">
+                                    <input id="5" onclick="escolherServico('12')" class="input-radio" type="radio" name="servico" value="Barba">
+                                    BARBA
+                                </label>
+                            </td>
+                            <td>
+                                <label class="label-borda">                                    
+                                    R$ 12,00
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="label-borda" for="6">
+                                    <input id="6" onclick="escolherServico('10')" class="input-radio" type="radio" name="servico" value="Friso">
+                                    FRISO
+                                </label>
+                            </td>
+                            <td>
+                                <label class="label-borda">                                    
+                                    R$ 10,00
+                                </label></td>
+                        </tr>                        
+                        <tr>
+                            <td>
+                                <label class="label-borda" for="7">
+                                    <input id="7" onclick="escolherServico('15')" class="input-radio" type="radio" name="servico" value="Pigmentação">
+                                    PIGMENTAÇÃO
+                                </label>
+                            </td>
+                            <td>
+                                <label class="label-borda">                                     
+                                    R$ 15,00
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="label-borda" for="8">
+                                    <input id="8" onclick="escolherServico('8')" class="input-radio" type="radio" name="servico" value="Sobranchelha">
+                                    SOBRANCELHA
+                                </label>
+                            </td>
+                            <td>
+                                <label class="label-borda">                                    
+                                    R$ 8,00
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="botoes">
+                        <button type="button" onclick="voltarBarbeiro()">Voltar</button>
+                        <button id="botao-servico" type="button" onclick="avancarData()">Avançar</button>
+                    </div>
+                </div>
+            </div>
+            <div id="data">
+                <h1>Selecione a data:</h1> 
+                <div>
+                    <input name="data" id="date-input" type="date" class="inputs required-data" onclick="dataMinMax()" oninput="diaDeFuncionamento()" onchange="horarioDisponivel()">
+                </div>
+                <div>
+                    <select id="horario" name="horario" class="inputs required-data" onchange="mudancaHorario()">
+                        <option class="opcao" value="">Selecione um horário</option>
+                        <option class="opcao" value="08:00">8:00h</option>
+                        <option class="opcao" value="08:45">8:45h</option>
+                        <option class="opcao" value="09:30">9:30h</option>
+                        <option class="opcao" value="10:15">10:15h</option>
+                        <option class="opcao" value="11:00">11:00h</option>
+                        <option class="opcao" value="11:45">11:45h</option>
+                        <option class="opcao" value="12:30">12:30h</option>
+                        <option class="opcao" value="14:45">14:45h</option>
+                        <option class="opcao" value="15:30">15:30h</option>
+                        <option class="opcao" value="16:15">16:15h</option>
+                        <option class="opcao" value="17:00">17:00h</option>
+                        <option class="opcao" value="17:45">17:45h</option>
+                        <option class="opcao" value="18:30">18:30h</option>
+                        <option class="opcao" value="19:15">19:15h</option> 
+                    </select>   
+                    <span id="span-select">Sem horário disponível.</span>             
+                </div> 
+                <div class="botoes">
+                    <button type="button" onclick="voltarServico()">Voltar</button>
+                    <button id="botao-confirmar" onclick="validarFormulario()" type="button">Avançar</button>                    
+                </div>
+                <div id="resumo">                                    
+                </div>                
+            </div>            
+        </form> 
+    </div>
+    <div id="contato">
+        <h2>Contato:</h2>
+        <div id="social">
+            <ul id="lista-social">
+                <li>
+                    <div id="edson">
+                        <a href="https://www.instagram.com/edsonaraujobarber/" target="_blank" rel="external"><img class="social-image" src="imagens/instagram.png" alt="instagram de Edson"></a>
+                        <a href="https://api.whatsapp.com/send?phone=5575982788012" target="_blank" rel="external"><img class="social-image" src="imagens/Whatsapp-icon.png" alt="Whatsapp de Edson"></a>
+                        <p>Edson Araújo</p>
+                    </div>
+                    <div id="edilson">                        
+                        <a href="https://www.instagram.com/diillbarber/" target="_blank" rel="external"><img class="social-image" src="imagens/instagram.png" alt="instagram de Edilson"></a>
+                        <a href="https://api.whatsapp.com/send?phone=5575983185932" target="_blank" rel="external"><img class="social-image" src="imagens/Whatsapp-icon.png" alt="Whatsapp de Edilson"></a>             
+                        <p>Edilson Araújo</p>           
+                    </div>
+                    <!--<div id="bruno">                        
+                        <a href="https://www.instagram.com/brunodocorte_fc/" target="_blank" rel="external"><img class="social-image" src="imagens/instagram.png" alt="instagram de Bruno"></a>
+                        <a href="https://api.whatsapp.com/send?phone=5575981817339" target="_blank" rel="external"><img class="social-image" src="imagens/Whatsapp-icon.png" alt="Whatsapp de Bruno"></a>                        
+                        <p>Bruno Luiz</p>
+                    </div>-->
+                </li>
+                <img src="imagens/logo s fundo200px.png" alt="logo-barbearia" id="logo-contato">
+                <li>
+                    
+                </li>
+            </ul>
+        </div>
+        <footer>
+            <address>
+                <p>Deseja automatizar o seu agendamento? Entre em contato conosco pelo<a href="https://www.instagram.com/7sistema/" target="_blank" rel="author">Instagram</a>ou<a href="https://api.whatsapp.com/send?phone=5575982868624" target="_blank" rel="author">Whatsapp.</a></p>            
+            </address>
+        </footer>
+    </div>
+</body>
+
+<script src="scripts.js"></script>
+
+</html>
