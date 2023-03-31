@@ -5,38 +5,34 @@ let formData = document.getElementById("data")
 let formFinal = document.getElementById("final")
 
 
-//---------------------------------------------------------------------------------------------------------------------------
-// TELA DE CADASTRO
 const formCadastro = document.getElementById("form");
 const campos = document.querySelectorAll(".required");
 const span = document.querySelectorAll(".span-required");
 const telRegex = /^\(\d{2}\) 9\d{4}-\d{4}$/;
 const nomeRegex = /^[a-zA-ZÀ-ú\s]+$/;
 
-//função para mostrar as validações após clicar no botão "avançar"
 
 
-//função para apresentar o erro no campo
 function mostrarErro(index){
     span[index].style.display = "block";
     campos[index].style.border = "2px solid #e63636";
     span[index].style.color = "#e63636";
 }
 
-//função para apresentar o erro no campo em outra cor (piscar)
+
 function mostrarErroPisca(index){
     span[index].style.display = "block";    
     campos[index].style.border = "2px solid #f1e4d8";
     span[index].style.color = "white"
 }
 
-//função para remover o erro no campo
+
 function removerErro(index){
     campos[index].style.border = "";
     span[index].style.display = "none";
 }
 
-//função para validar o campo de nome
+
 function validarNome(){
     if(campos[0].value.length < 3) {        
         mostrarErro(0);         
@@ -49,7 +45,7 @@ function validarNome(){
     }
 }
 
-//função para validar e formatar o campo de número
+
 function validarTelefone(){
     if(telRegex.test(campos[1].value)){
         removerErro(1);          
@@ -69,7 +65,7 @@ function validarTelefone(){
 
 function validarBotao(){     
     
-    //Os dois campos vazios
+    
     if (campos[0].value == '' && campos[1].value == '') {
         let segundos = 0;        
         let temporizador = setInterval(function() {
@@ -88,7 +84,7 @@ function validarBotao(){
             }, 400);
     }
 
-    //Os dois campos não validados
+   
     else if (campos[0].value.length < 3 && !telRegex.test(campos[1].value)) {        
         let segundos = 0;        
         let temporizador = setInterval(function() {
@@ -106,7 +102,7 @@ function validarBotao(){
             
             }, 400);
     }
-    //campo nome vazio e campo telefone não validado
+    
     else if (campos[0].value == '' && !telRegex.test(campos[1].value)) {
         let segundos = 0;        
         let temporizador = setInterval(function() {
@@ -123,7 +119,7 @@ function validarBotao(){
             
             }, 400);
     }
-    //campo nome não validado e campo telefone vazio
+    
     else if (campos[0].value.length < 3 && campos[1].value == '') {
         let segundos = 0;        
         let temporizador = setInterval(function() {
@@ -140,7 +136,7 @@ function validarBotao(){
             
             }, 400);
     }
-    //somente o campo nome não validado
+   
     else if (campos[0].value.length < 3) {
         let segundos = 0;        
         let temporizador = setInterval(function() {
@@ -155,7 +151,7 @@ function validarBotao(){
             
             }, 400);
     }
-    //somente o campo telefone não validado
+  
     else if (!telRegex.test(campos[1].value)) {
         let segundos = 0;        
         let temporizador = setInterval(function() {
@@ -187,7 +183,6 @@ function validarBotao(){
 
 //---------------------------------------------------------------------------------------------------------------------------
 
-// ESCOLHA DOS BARBEIROS
 
 function escolherBarbeiro() { 
     let barbeiroInputs = document.querySelectorAll("input[name='opcao']");
@@ -296,7 +291,6 @@ function voltarCliente() {
 
 //--------------------------------------------------------------------------------------------------------------
 
-// ESCOLHA DO SERVIÇO
 
 const servico = document.getElementsByClassName(".input-radio")
 
@@ -587,8 +581,7 @@ function voltarBarbeiro() {
 
 //------------------------------------------------------------------------------------------------------------------
 
-// ESCOLHA DA DATA
-//validar o campo data
+
 
 function atualizaHorariosDisponiveis() {
     const dataSelecionada = document.getElementById('date-input').value; 
@@ -605,7 +598,7 @@ function atualizaHorariosDisponiveis() {
       .then(response => response.json())
       .then(horariosCadastrados => {
         const select = document.getElementById('horario');
-        const opcoes = Array.from(select.children).slice(1); // remove a opção "Selecione um horário"
+        const opcoes = Array.from(select.children).slice(1);
         opcoes.forEach(opcao => {
           const horario = opcao.value;
           if (horariosCadastrados.includes(horario)) {
@@ -631,9 +624,8 @@ function dataMinMax() {
 
     document.getElementById("date-input").setAttribute("min", dataAtualFormatada);
     document.getElementById("date-input").setAttribute("max", dataMaxima);
-
 }
-//validar dia de funcionamento
+
 function diaDeFuncionamento() {
     let inputDia = document.getElementById("date-input");    
     let selectHorario = document.getElementById("horario");
@@ -656,8 +648,6 @@ function diaDeFuncionamento() {
     }
 }
 
-
-//validar campo horario
 function horarioDisponivel() {
     let resumo = document.getElementById("resumo")
     let inputDia = document.getElementById("date-input");
@@ -785,39 +775,3 @@ function voltarServico() {
 function enviarFormulario() {    
     formCadastro.submit();      
 }
-
-
-
-
-  
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

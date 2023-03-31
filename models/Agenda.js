@@ -1,6 +1,6 @@
 const db = require("./db");
 
-const agenda = db.sequelize.define("agenda", {
+const agenda = db.sequelize.define("edsonbarber", {
     id: {
         type: db.Sequelize.INTEGER,
         autoIncrement: true,

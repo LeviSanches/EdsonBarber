@@ -3,7 +3,7 @@ const app = express();
 const handlebars = require("express-handlebars");
 const session = require("express-session")
 const agenda = require("./models/Agenda");
-const admin = require("./routes/admin");
+const port = process.env.PORT || 8080;
 
 // config: PEGAR INFORMAÇÃO DO FORMULÁRIO.
 app.use(express.urlencoded({extended:false}));
@@ -128,4 +128,6 @@ app.get("/agenda/:id", autenticacao, (req, res) => {
 });
 
 
-app.listen(8080, () => {console.log("Servidor rodando na porta: 8080")});
+app.listen(port, () => {
+  console.log("Servidor rodando na porta: " + port )
+});
