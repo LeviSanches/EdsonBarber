@@ -4,13 +4,11 @@ let formServico = document.getElementById("servico")
 let formData = document.getElementById("data")
 let formFinal = document.getElementById("final")
 
-
 const formCadastro = document.getElementById("form");
 const campos = document.querySelectorAll(".required");
 const span = document.querySelectorAll(".span-required");
 const telRegex = /^\(\d{2}\) 9\d{4}-\d{4}$/;
 const nomeRegex = /^[a-zA-ZÀ-ú\s]+$/;
-
 
 
 function mostrarErro(index){
@@ -19,19 +17,16 @@ function mostrarErro(index){
     span[index].style.color = "#e63636";
 }
 
-
 function mostrarErroPisca(index){
     span[index].style.display = "block";    
     campos[index].style.border = "2px solid #f1e4d8";
     span[index].style.color = "white"
 }
 
-
 function removerErro(index){
     campos[index].style.border = "";
     span[index].style.display = "none";
 }
-
 
 function validarNome(){
     if(campos[0].value.length < 3) {        
@@ -44,7 +39,6 @@ function validarNome(){
         removerErro(1); 
     }
 }
-
 
 function validarTelefone(){
     if(telRegex.test(campos[1].value)){
@@ -60,12 +54,9 @@ function validarTelefone(){
     telefoneFormatado = telefoneFormatado.replace(/^(\d{2})(\d)/g, '($1) $2');
     telefoneFormatado = telefoneFormatado.replace(/(\d{5})(\d)/, '$1-$2');
     telefone.value = telefoneFormatado;
-
 }
 
-function validarBotao(){     
-    
-    
+function validarBotao(){   
     if (campos[0].value == '' && campos[1].value == '') {
         let segundos = 0;        
         let temporizador = setInterval(function() {
@@ -83,7 +74,6 @@ function validarBotao(){
             
             }, 400);
     }
-
    
     else if (campos[0].value.length < 3 && !telRegex.test(campos[1].value)) {        
         let segundos = 0;        
@@ -181,8 +171,7 @@ function validarBotao(){
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------
-
+//-----------------------------------------------------------------------------------------------------------------------
 
 function escolherBarbeiro() { 
     let barbeiroInputs = document.querySelectorAll("input[name='opcao']");
@@ -567,6 +556,14 @@ function avancarData() {
         left: 0,
         behavior: 'smooth'
       });
+    let atualizarData = document.getElementById("date-input");
+    let spanSelect = document.getElementById("span-select");
+    let selectHorario = document.getElementById("horario");
+    let resumo = document.getElementById("resumo");
+    atualizarData.value = "";
+    spanSelect.style.display = "none";
+    selectHorario.style.display = "none";
+    resumo.style.display = "none";
 }
 
 function voltarBarbeiro() {
@@ -601,7 +598,7 @@ function atualizaHorariosDisponiveis() {
         const opcoes = Array.from(select.children).slice(1);
         opcoes.forEach(opcao => {
           const horario = opcao.value;
-          if (horariosCadastrados.includes(horario)) {
+          if (horariosCadastrados.includes(horario)) {                        
             opcao.disabled = true;
             opcao.classList.add('opcao-cadastrada');
           } else {
@@ -624,15 +621,24 @@ function dataMinMax() {
 
     document.getElementById("date-input").setAttribute("min", dataAtualFormatada);
     document.getElementById("date-input").setAttribute("max", dataMaxima);
+
 }
 
 function diaDeFuncionamento() {
+    let barbeiro = document.getElementsByName("opcao");
+    let barbeiroSelecionado = "";
     let inputDia = document.getElementById("date-input");    
     let selectHorario = document.getElementById("horario");
     let spanSelect = document.getElementById("span-select");
     let botao = document.getElementById("botao-confirmar");
     let diaSelecionado = new Date(inputDia.value);
-    let diaDaSemana = diaSelecionado.getDay();      
+    let diaDaSemana = diaSelecionado.getDay(); 
+    
+    barbeiro.forEach(selecionado => {
+        if (selecionado.checked) {
+            barbeiroSelecionado = selecionado.value;
+        }
+    })
 
     if (diaDaSemana === 1 || diaDaSemana === 6){
         alert("Não trabalhamos as terças-feiras nem aos domingos.");
@@ -640,6 +646,12 @@ function diaDeFuncionamento() {
         botao.style.display = "none"
         $(spanSelect).fadeIn(1000);
     } 
+    else if (diaDaSemana === 4 && barbeiroSelecionado === "Edson Araújo"){
+        alert("Desculpe, estou sem horário disponível as sextas-feiras, mas você pode tentar com outro barbeiro.");
+        selectHorario.style.display = "none";
+        botao.style.display = "none";
+        $(spanSelect).fadeIn(1000);        
+    }    
     
     else {
         spanSelect.style.display = "none";
@@ -648,10 +660,13 @@ function diaDeFuncionamento() {
     }
 }
 
+
 function horarioDisponivel() {
+    let barbeiro = document.getElementsByName("opcao");
     let resumo = document.getElementById("resumo")
     let inputDia = document.getElementById("date-input");
-    let opcoes = document.getElementsByClassName("opcao");        
+    let opcoes = document.getElementsByClassName("opcao");    
+    let campoHorario = document.getElementById("horario");        
     let data = new Date();    
     let horaAtual = data.toLocaleTimeString().slice(0, 5)    
     let dataMenosTresHoras = new Date();
@@ -659,47 +674,106 @@ function horarioDisponivel() {
     let dataAtualFormatada = dataMenosTresHoras.toISOString().slice(0, 10); 
     atualizaHorariosDisponiveis();   
     let diaSelecionado = new Date(inputDia.value);
-    let diaDaSemana = diaSelecionado.getDay(); 
-
+    let diaDaSemana = diaSelecionado.getDay();
     
-    if(inputDia.value === dataAtualFormatada && (diaDaSemana === 0 || diaDaSemana == 2)) {        
+    barbeiro.forEach(selecionado => {
+        if (selecionado.checked) {
+            barbeiroSelecionado = selecionado.value;
+        }
+    })
+
+    let opcao; 
+    for(let i = 0; i < opcoes.length; i++) {
+        opcao = opcoes[i];     
+    }
+
+    campoHorario.value = "";  
+
+    if(inputDia.value === dataAtualFormatada && (diaDaSemana === 0 || diaDaSemana === 2)) {  
+        opcoes[0].textContent = "Selecione um horário";
+        opcoes[1].textContent = "8:00h";
+        opcoes[2].textContent = "9:00h";
+        opcoes[3].textContent = "10:00h";
+        opcoes[4].textContent = "11:00h";
+        opcoes[5].textContent = "12:00h";
+        opcoes[6].textContent = "14:40h";
+        opcoes[7].textContent = "16:00h";
+        opcoes[8].textContent = "17:00h";        
+        opcoes[9].textContent = "18:00h";
+        opcoes[10].textContent = "19:00h";        
         for(let i = 0; i < opcoes.length; i++) {
-            let opcao = opcoes[i];
-            opcao.style.display = ""
-            if (opcao.value <= horaAtual || opcao.value > "17:44") {
-                opcao.style.display = "none";  
+            let opcao = opcoes[i];            
+            if (opcao.value <= horaAtual || opcao.value > "17:01") {
+                opcao.textContent = "Indisponível"; 
                 resumo.style.display = "none" ; 
             }
         }
     }
 
-    else if (inputDia.value === dataAtualFormatada) {        
-        for(let i = 0; i < opcoes.length; i++) {
-            let opcao = opcoes[i];
-            opcao.style.display = ""
-            if (opcao.value <= horaAtual) {
-                opcao.style.display = "none";  
-                resumo.style.display = "none" ;             
-            }
-        }
+    else if (diaDaSemana === 5 && barbeiroSelecionado === "Edson Araújo") {                     
+        opcoes[0].textContent = "Selecione um horário";
+        opcoes[1].textContent = "Indisponível";
+        opcoes[2].textContent = "Indisponível";
+        opcoes[3].textContent = "Indisponível";
+        opcoes[4].textContent = "Indisponível";
+        opcoes[5].textContent = "Indisponível";
+        opcoes[6].textContent = "Indisponível";
+        opcoes[7].textContent = "16:00h";
+        opcoes[8].textContent = "17:00h";        
+        opcoes[9].textContent = "18:00h";
+        opcoes[10].textContent = "19:00h";        
+        resumo.style.display = "none" ;  
     }
-    else if (diaDaSemana === 0 || diaDaSemana === 2) {        
+
+    else if (inputDia.value === dataAtualFormatada) {
+        opcoes[0].textContent = "Selecione um horário";
+        opcoes[1].textContent = "8:00h";
+        opcoes[2].textContent = "9:00h";
+        opcoes[3].textContent = "10:00h";
+        opcoes[4].textContent = "11:00h";
+        opcoes[5].textContent = "12:00h";
+        opcoes[6].textContent = "14:40h";
+        opcoes[7].textContent = "16:00h";
+        opcoes[8].textContent = "17:00h";        
+        opcoes[9].textContent = "18:00h";
+        opcoes[10].textContent = "19:00h";    
         for(let i = 0; i < opcoes.length; i++) {
-            let opcao = opcoes[i];
-            opcao.style.display = ""
-            if (opcao.value > "17:44") {
-                opcao.style.display = "none";  
+            let opcao = opcoes[i];                        
+            if (opcao.value <= horaAtual) {
+                opcao.textContent = "Indisponível";  
                 resumo.style.display = "none" ;             
             }
         }
     }
 
-    else {        
-        for (let i = 0; i < opcoes.length; i++) {
-            let opcao = opcoes[i];
-            opcao.style.display = "block";
-            resumo.style.display = "none";
-        }
+    else if (diaDaSemana === 0 || diaDaSemana === 2) {         
+        opcoes[0].textContent = "Selecione um horário";
+        opcoes[1].textContent = "8:00h";
+        opcoes[2].textContent = "9:00h";
+        opcoes[3].textContent = "10:00h";
+        opcoes[4].textContent = "11:00h";
+        opcoes[5].textContent = "12:00h";
+        opcoes[6].textContent = "14:40h";
+        opcoes[7].textContent = "16:00h";
+        opcoes[8].textContent = "17:00h";        
+        opcoes[9].textContent = "Indisponível";
+        opcoes[10].textContent = "Indisponível";
+        resumo.style.display = "none" ;          
+    }
+
+    else {  
+        opcoes[0].textContent = "Selecione um horário";
+        opcoes[1].textContent = "8:00h";
+        opcoes[2].textContent = "9:00h";
+        opcoes[3].textContent = "10:00h";
+        opcoes[4].textContent = "11:00h";
+        opcoes[5].textContent = "12:00h";
+        opcoes[6].textContent = "14:40h";
+        opcoes[7].textContent = "16:00h";
+        opcoes[8].textContent = "17:00h";        
+        opcoes[9].textContent = "18:00h";
+        opcoes[10].textContent = "19:00h";                    
+        resumo.style.display = "none";          
     }
 }
 
@@ -709,6 +783,16 @@ function mudancaHorario() {
     let resumo = document.getElementById("resumo") 
     $(botao).fadeTo(1000, 1);
     resumo.style.display = "none";
+
+    let horarioSelect = document.getElementById("horario"); 
+    let horarioIndex = horarioSelect.selectedIndex;
+    let opcaoSelect = horarioSelect.options[horarioIndex];    
+    let opcaoText = opcaoSelect.text;
+
+    if (opcaoText === 'Indisponível') {
+        alert("Selecione um horário válido.")
+        horarioSelect.value = "";
+    }
 
 }
 
@@ -724,8 +808,9 @@ function validarFormulario() {
     let servicoValue;        
     let botaoAvancar = document.getElementById("botao-confirmar")    
     let resumo = document.getElementById("resumo")
-    let dataInput = document.getElementById("date-input");
-    let horarioSelect = document.getElementById("horario");
+    let dataInput = document.getElementById("date-input");    
+    let horarioSelect = document.getElementById("horario"); 
+     
 
     if (dataInput.value === '' || horarioSelect.value === '') {
         alert("verifique os campos e tente novamente.");

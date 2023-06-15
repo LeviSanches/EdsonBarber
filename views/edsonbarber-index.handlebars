@@ -1,12 +1,12 @@
 <div class="content">  
-        <form id="form" action="/index" method="POST">       
-            <img src="imagens/logo s fundo200px.png" alt="logo-barbearia" id="logo">         
+        <form id="form" action="/edsonbarber-agendado" method="POST">       
+            <img src="imagens/EdsonBarber_logo.png" alt="logo-barbearia" id="logo">         
             <div id="cliente">
                 <h1>Dados do Cliente</h1>
                 <div>
                     <p>Nome:</p>
                     <input type="text" id="nome" placeholder="Nome e Sobrenome" class="inputs required" oninput="validarNome()" maxlength="25" name="nome">
-                    <span class="span-required">Nome deve conter mínimo 3 caracteres.</span>                    
+                    <span class="span-required">Nome deve conter no mínimo 3 caracteres.</span>                    
                 </div>
                 <div>
                     <p>Whatsapp:</p>
@@ -19,21 +19,21 @@
                 <h1>Escolha um dos profissionais abaixo:</h1>
                 <div>               
                     <input class="input-radio" type="radio" id="edson" name="opcao" onclick="escolherBarbeiro()" value="Edson Araújo">
-                    <label for="edson" class="selecionado"><img src="imagens/Edson200.png" class="imagem-barbeiro" alt="imagem de Edson"> <p class="nome-barbeiro">Edson Araújo</p></label>        
+                    <label for="edson" class="selecionado"><img src="imagens/EdsonBarber_Edson.png" class="imagem-barbeiro" alt="Imagem de Edson, clique aqui se deseja escolher-lo."> <p class="nome-barbeiro">Edson Araújo</p></label>        
                 </div>
                 <div>
                     <input class="input-radio" type="radio" id="edilson" name="opcao" onclick="escolherBarbeiro()" value="Edilson Araújo">
-                    <label for="edilson" class="selecionado"><img src="imagens/Edilson200px.jpg" class="imagem-barbeiro" alt="imagem de Edilson"> <p class="nome-barbeiro">Edilson Araújo</p>
+                    <label for="edilson" class="selecionado"><img src="imagens/EdsonBarber_Edilson.jpg" class="imagem-barbeiro" alt="imagem de Edilson, clique aqui se deseja escolher-lo."> <p class="nome-barbeiro">Edilson Araújo</p>
                     </label>
                 </div>
                 <div>
                     <input class="input-radio" type="radio" id="bruno" name="opcao" onclick="escolherBarbeiro()" value="Bruno Luiz">
-                    <label for="bruno" class="selecionado"><img src="imagens/bruno200px.png" class="imagem-barbeiro" alt="imagem de Bruno"> <p class="nome-barbeiro">Bruno Luiz</p>
+                    <label for="bruno" class="selecionado"><img src="imagens/EdsonBarber_Bruno.png" class="imagem-barbeiro" alt="imagem de Bruno, clique aqui se deseja escolher-lo."> <p class="nome-barbeiro">Bruno Luiz</p>
                     </label>
                 </div>
                 <div class="botoes">
-                    <button type="button" onclick="voltarCliente()">Voltar</button>
-                    <button type="button" id="botao-barbeiro" onclick="avancarServico()">Avançar</button>
+                    <button type="button" onclick="voltarCliente()" alt="botão de voltar.">Voltar</button>
+                    <button type="button" id="botao-barbeiro" onclick="avancarServico()" alt="botão de avançar.">Avançar</button>
                 </div>
             </div>
             <div id="servico">
@@ -229,19 +229,15 @@
                     <select id="horario" name="horario" class="inputs required-data" onchange="mudancaHorario()">  
                         <option class="opcao" value="">Selecione um horário</option>                      
                         <option class="opcao" value="08:00">8:00h</option>
-                        <option class="opcao" value="08:45">8:45h</option>
-                        <option class="opcao" value="09:30">9:30h</option>
-                        <option class="opcao" value="10:15">10:15h</option>
+                        <option class="opcao" value="09:00">9:00h</option>
+                        <option class="opcao" value="10:00">10:00h</option>
                         <option class="opcao" value="11:00">11:00h</option>
-                        <option class="opcao" value="11:45">11:45h</option>
-                        <option class="opcao" value="12:30">12:30h</option>
-                        <option class="opcao" value="14:45">14:45h</option>
-                        <option class="opcao" value="15:30">15:30h</option>
-                        <option class="opcao" value="16:15">16:15h</option>
+                        <option class="opcao" value="12:00">12:00h</option>
+                        <option class="opcao" value="14:40">14:40h</option>                        
+                        <option class="opcao" value="16:00">16:00h</option>
                         <option class="opcao" value="17:00">17:00h</option>
-                        <option class="opcao" value="17:45">17:45h</option>
-                        <option class="opcao" value="18:30">18:30h</option>
-                        <option class="opcao" value="19:15">19:15h</option>
+                        <option class="opcao" value="18:00">18:00h</option>
+                        <option class="opcao" value="19:00">19:00h</option>                        
                     </select>
                     <span id="span-select">Sem horário disponível.</span>             
                 </div> 
@@ -261,12 +257,12 @@
                 <li>
                     <div id="edson">
                         <a href="https://www.instagram.com/edsonaraujobarber/" target="_blank" rel="external"><img class="social-image" src="imagens/instagram.png" alt="instagram de Edson"></a>
-                        <a href="https://api.whatsapp.com/send?phone=5575982788012" target="_blank" rel="external"><img class="social-image" src="imagens/Whatsapp-icon.png" alt="Whatsapp de Edson"></a>
+                        <a href="https://api.whatsapp.com/send?phone=5575982788012" target="_blank" rel="external"><img class="social-image" src="imagens/whatsapp.png" alt="Whatsapp de Edson"></a>
                         <p>Edson Araújo</p>
                     </div>
                     <div id="edilson">                        
                         <a href="https://www.instagram.com/diillbarber/" target="_blank" rel="external"><img class="social-image" src="imagens/instagram.png" alt="instagram de Edilson"></a>
-                        <a href="https://api.whatsapp.com/send?phone=5575983185932" target="_blank" rel="external"><img class="social-image" src="imagens/Whatsapp-icon.png" alt="Whatsapp de Edilson"></a>             
+                        <a href="https://api.whatsapp.com/send?phone=5575983185932" target="_blank" rel="external"><img class="social-image" src="imagens/whatsapp.png" alt="Whatsapp de Edilson"></a>             
                         <p>Edilson Araújo</p>           
                     </div>                    
                 </li>
@@ -274,9 +270,9 @@
         </div>
         <footer>
             <address>                
-                <p>Deseja automatizar o seu agendamento? Entre em contato conosco pelo<a href="https://www.instagram.com/suagendabarber/" target="_blank" rel="author">Instagram</a>ou<a href="https://api.whatsapp.com/send?phone=5575982868624" target="_blank" rel="author">Whatsapp.</a></p> 
+                <p>Deseja automatizar o seu agendamento? Entre em contato conosco pelo<a href="https://www.instagram.com/suagendabarber/" target="_blank" rel="author" alt="Instagram">Instagram</a>ou<a href="https://api.whatsapp.com/send?phone=5575982868624" target="_blank" rel="author" alt="Whatsapp">Whatsapp.</a></p> 
             </address>
             <p id="copyright">Copyright © 2022 SISEVEN. Todos os direitos reservados.</p>
-            <img id="logo-suagendabarber" src="imagens/Logo.png" alt="">
+            <img id="logo-suagendabarber" src="imagens/logo.png" alt="">
         </footer>
     </div>

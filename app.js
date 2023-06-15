@@ -3,7 +3,7 @@ const app = express();
 const handlebars = require("express-handlebars");
 const session = require("express-session")
 const agenda = require("./models/Agenda");
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 4001;
 
 // config: PEGAR INFORMAÇÃO DO FORMULÁRIO.
 app.use(express.urlencoded({extended:false}));
@@ -28,16 +28,16 @@ function autenticacao(req, res, next) {
   if (req.session && req.session.autenticado) {
     return next();
   } else {
-    return res.redirect("/senha");
+    return res.redirect("/edsonbarber-senha");
   }
 }
 
-app.get("/index", (req, res) => {  
-    res.render("index")
+app.get("/edsonbarber", (req, res) => {  
+    res.render("edsonbarber-index")
 });
 
-app.get("/final", (req, res) => {
-  res.sendFile(__dirname + "/views/final.html")
+app.get("/edsonbarber-agendado", (req, res) => {
+  res.sendFile(__dirname + "/views/edsonbarber-agendado.html")
 });
 
 //exibe os horários já agendados
@@ -56,7 +56,7 @@ app.get('/horarios-cadastrados/:data/:barbeiro', (req, res) => {
 });
 
 //realiza um agendamento
-app.post("/index", (req, res) => {    
+app.post("/edsonbarber-agendado", (req, res) => {    
   agenda.create({
       nome: req.body.nome,
       telefone: req.body.telefone,
@@ -65,23 +65,21 @@ app.post("/index", (req, res) => {
       data: req.body.data,
       hora: req.body.horario,
   }).then(() => {
-      res.redirect("/final");
+      res.redirect("/edsonbarber-agendado");
   }).catch((erro) => {
       res.send("Houve um erro: " + erro)
   })    
 });
 
-
-
-app.get("/senha", (req, res) => {
-  res.render("senha");
+app.get("/edsonbarber-senha", (req, res) => {
+  res.render("edsonbarber-senha");
 });
 
 //rota da agenda
-app.post("/login", (req, res) => {
+app.post("/edsonbarber-agenda", (req, res) => {
   const senha = req.body.senha;
   
-  if (senha === "123") {
+  if (senha === "81431840") {
     req.session.autenticado = true;
     res.json({ sucess: true });    
   } else {
@@ -89,27 +87,29 @@ app.post("/login", (req, res) => {
   }
 });
 
-app.get("/agenda", autenticacao, (req, res) => {
-  res.render("agenda");
+app.get("/edsonbarber-agenda", autenticacao, (req, res) => {
+  res.render("edsonbarber-agenda");
 });
 
 //mostra os agendamentos do dia
 
-
-app.post("/agenda", autenticacao, (req, res) => {    
+app.post("/edsonbarber-horarios", autenticacao, (req, res) => {    
   agenda.findAll({
     attributes: ["nome", "hora", "servico", "id", "telefone"],
     where: {
       barbeiro: req.body.opcao,
       data: req.body.data
-    }
+    },
+    order: [
+      ["hora", "ASC"]
+    ]
   }).then(tabela => {
     const dados = tabela.map(item => {
       // Substitui caracteres que não são números por uma string vazia
       item.telefone = item.telefone.replace(/\D/g, '');
       return item.toJSON();
     });
-    res.render("agenda", {dados});
+    res.render("edsonbarber-agenda", {dados});
   }).catch(erro => {
     console.log("ocorreu um erro:", erro)
   })
@@ -117,11 +117,11 @@ app.post("/agenda", autenticacao, (req, res) => {
 
 
 //exclui um agendamento
-app.get("/agenda/:id", autenticacao, (req, res) => {
+app.get("/edsonbarber-agenda/:id", autenticacao, (req, res) => {
   agenda.destroy({
     where: {"id": req.params.id}
   }).then(() => {
-    return res.redirect("/agenda");
+    return res.redirect("/edsonbarber-agenda");
   }).catch(function(erro){
     res.status(500).send("esta postagem não existe", erro)
   })
