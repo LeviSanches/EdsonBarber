@@ -191,11 +191,11 @@ function escolherBarbeiro() {
         switch (barbeiroValue) {
             case "Edson Araújo":
                 imagens[0].style.border = "5px solid #ffbd59";
-                imagens[1].style.border = "";
-                imagens[2].style.border = "";            
+                //imagens[1].style.border = "";
+                imagens[1].style.border = "";            
                 botao.style.display = "inline-block";
                 window.scroll({
-                    top: 720,
+                    top: 500,
                     left: 0,
                     behavior: 'smooth'
                   }); 
@@ -204,7 +204,7 @@ function escolherBarbeiro() {
                 }, 100);
                 break;
 
-            case "Edilson Araújo":
+            /*case "Edilson Araújo":
                 imagens[1].style.border = "5px solid #ffbd59";
                 imagens[0].style.border = "";
                 imagens[2].style.border = "";
@@ -217,15 +217,15 @@ function escolherBarbeiro() {
                 setTimeout(() => {
                     botao.classList.add("show");
                 }, 100);
-                break;
+                break;*/
 
             case "Bruno Luiz":
-                imagens[2].style.border = "5px solid #ffbd59";
-                imagens[1].style.border = "";
+                imagens[1].style.border = "5px solid #ffbd59";
+                //imagens[1].style.border = "";
                 imagens[0].style.border = "";
                 botao.style.display = "inline-block";
                 window.scroll({
-                    top: 720,
+                    top: 500,
                     left: 0,
                     behavior: 'smooth'
                   }); 
@@ -799,9 +799,8 @@ function mudancaHorario() {
 function validarFormulario() {   
     let hora = document.getElementById("horario").value
     let data = document.getElementById("date-input").value  
-    let dataObj = new Date(data);      
-    dataObj.setDate(dataObj.getDate() + 1);
-    let dataFormatada = dataObj.toLocaleDateString('pt-BR');
+    let partesData = data.split('-');
+    let dataFormatada = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
     let barbeiroInputs = document.querySelectorAll("input[name='opcao']");
     let barbeiroValue;
     let servicoInputs = document.querySelectorAll("input[name='servico']");
