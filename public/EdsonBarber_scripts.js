@@ -591,7 +591,7 @@ function atualizaHorariosDisponiveis() {
         }
     }
 
-    fetch(`/horarios-cadastrados/${dataSelecionada}/${barbeiroValue}`)
+    /*fetch(`/horarios-cadastrados/${dataSelecionada}/${barbeiroValue}`)
       .then(response => response.json())
       .then(horariosCadastrados => {
         const select = document.getElementById('horario');
@@ -606,7 +606,7 @@ function atualizaHorariosDisponiveis() {
           }
         }
     )}
-)}
+    )*/}
 
 function dataMinMax() {
     let data = new Date();
@@ -640,19 +640,18 @@ function diaDeFuncionamento() {
         }
     })
 
-    if (diaDaSemana === 1 || diaDaSemana === 6){
+    if ((diaDaSemana === 1 || diaDaSemana === 6) && inputDia.value !== '2023-06-20'){
         alert("Não trabalhamos as terças-feiras nem aos domingos.");
         selectHorario.style.display = "none";
         botao.style.display = "none"
         $(spanSelect).fadeIn(1000);
     } 
-    else if (diaDaSemana === 4 && barbeiroSelecionado === "Edson Araújo"){
+    else if ((diaDaSemana === 4 && barbeiroSelecionado === "Edson Araújo") && inputDia.value !== '2023-06-23'){
         alert("Desculpe, estou sem horário disponível as sextas-feiras, mas você pode tentar com outro barbeiro.");
         selectHorario.style.display = "none";
         botao.style.display = "none";
         $(spanSelect).fadeIn(1000);        
-    }    
-    
+    }
     else {
         spanSelect.style.display = "none";
         $(selectHorario).fadeTo(500, 1);
@@ -682,97 +681,258 @@ function horarioDisponivel() {
         }
     })
 
-    let opcao; 
-    for(let i = 0; i < opcoes.length; i++) {
-        opcao = opcoes[i];     
-    }
-
     campoHorario.value = "";  
 
-    if(inputDia.value === dataAtualFormatada && (diaDaSemana === 0 || diaDaSemana === 2)) {  
-        opcoes[0].textContent = "Selecione um horário";
-        opcoes[1].textContent = "8:00h";
-        opcoes[2].textContent = "9:00h";
-        opcoes[3].textContent = "10:00h";
-        opcoes[4].textContent = "11:00h";
-        opcoes[5].textContent = "12:00h";
-        opcoes[6].textContent = "14:40h";
-        opcoes[7].textContent = "16:00h";
-        opcoes[8].textContent = "17:00h";        
-        opcoes[9].textContent = "18:00h";
-        opcoes[10].textContent = "19:00h";        
-        for(let i = 0; i < opcoes.length; i++) {
-            let opcao = opcoes[i];            
-            if (opcao.value <= horaAtual || opcao.value > "17:01") {
-                opcao.textContent = "Indisponível"; 
-                resumo.style.display = "none" ; 
+    if ((diaDaSemana === 0 || diaDaSemana === 1 || diaDaSemana === 2) && inputDia.value !== '2023-06-21') {  
+        campoHorario.innerHTML = 
+        '<option class="opcao" value="">Selecione um horário</option>' + 
+        '<option class="opcao" value="06:00">06:00h</option>' + 
+        '<option class="opcao" value="07:00">07:00h</option>' + 
+        '<option class="opcao" value="08:00">08:00h</option>' +
+        '<option class="opcao" value="09:00">09:00h</option>' + 
+        '<option class="opcao" value="10:00">10:00h</option>' + 
+        '<option class="opcao" value="11:00">11:00h</option>' + 
+        '<option class="opcao" value="12:00">12:00h</option>' +  
+        '<option class="opcao" value="14:40">14:40h</option>' + 
+        '<option class="opcao" value="16:00">16:00h</option>' + 
+        '<option class="opcao" value="17:00">17:00h</option>' + 
+        '<option class="opcao" value="18:00">18:00h</option>' +                    
+        '<option class="opcao" value="19:00">19:00h</option>' 
+        opcoes[1].style.display = 'none' 
+        opcoes[1].textContent = 'Indisponível'   
+        opcoes[2].style.display = 'none'  
+        opcoes[2].textContent = 'Indisponível'         
+        opcoes[11].style.display = 'none'   
+        opcoes[11].textContent = 'Indisponível' 
+        opcoes[12].style.display = 'none'   
+        opcoes[12].textContent = 'Indisponível'         
+        if (inputDia.value === dataAtualFormatada) {
+            for(let i = 0; i < opcoes.length; i++) {
+                let opcao = opcoes[i];                        
+                if (opcao.value <= horaAtual) {
+                    opcao.textContent = "Indisponível";  
+                    resumo.style.display = "none" ;             
+                }
             }
-        }
-    }
-
-    else if (diaDaSemana === 5 && barbeiroSelecionado === "Edson Araújo") {                     
-        opcoes[0].textContent = "Selecione um horário";
+        } 
+    }    
+    else if (diaDaSemana === 5 && barbeiroSelecionado === "Edson Araújo") { 
+        campoHorario.innerHTML = 
+        '<option class="opcao" value="">Selecione um horário</option>' + 
+        '<option class="opcao" value="06:00">06:00h</option>' + 
+        '<option class="opcao" value="07:00">07:00h</option>' + 
+        '<option class="opcao" value="08:00">08:00h</option>' +
+        '<option class="opcao" value="09:00">09:00h</option>' + 
+        '<option class="opcao" value="10:00">10:00h</option>' + 
+        '<option class="opcao" value="11:00">11:00h</option>' + 
+        '<option class="opcao" value="12:00">12:00h</option>' +  
+        '<option class="opcao" value="14:40">14:40h</option>' + 
+        '<option class="opcao" value="16:00">16:00h</option>' + 
+        '<option class="opcao" value="17:00">17:00h</option>' + 
+        '<option class="opcao" value="18:00">18:00h</option>' +                    
+        '<option class="opcao" value="19:00">19:00h</option>'         
         opcoes[1].textContent = "Indisponível";
+        opcoes[1].style.display = 'none'
         opcoes[2].textContent = "Indisponível";
+        opcoes[2].style.display = 'none'
         opcoes[3].textContent = "Indisponível";
+        opcoes[3].style.display = 'none'
         opcoes[4].textContent = "Indisponível";
+        opcoes[4].style.display = 'none'
         opcoes[5].textContent = "Indisponível";
+        opcoes[5].style.display = 'none'
         opcoes[6].textContent = "Indisponível";
-        opcoes[7].textContent = "16:00h";
-        opcoes[8].textContent = "17:00h";        
-        opcoes[9].textContent = "18:00h";
-        opcoes[10].textContent = "19:00h";        
+        opcoes[6].style.display = 'none'
+        opcoes[7].textContent = "Indisponível";
+        opcoes[7].style.display = 'none'
+        opcoes[8].textContent = "Indisponível"; 
+        opcoes[8].style.display = 'none'
         resumo.style.display = "none" ;  
-    }
-
-    else if (inputDia.value === dataAtualFormatada) {
-        opcoes[0].textContent = "Selecione um horário";
-        opcoes[1].textContent = "8:00h";
-        opcoes[2].textContent = "9:00h";
-        opcoes[3].textContent = "10:00h";
-        opcoes[4].textContent = "11:00h";
-        opcoes[5].textContent = "12:00h";
-        opcoes[6].textContent = "14:40h";
-        opcoes[7].textContent = "16:00h";
-        opcoes[8].textContent = "17:00h";        
-        opcoes[9].textContent = "18:00h";
-        opcoes[10].textContent = "19:00h";    
-        for(let i = 0; i < opcoes.length; i++) {
-            let opcao = opcoes[i];                        
-            if (opcao.value <= horaAtual) {
-                opcao.textContent = "Indisponível";  
-                resumo.style.display = "none" ;             
+        if (inputDia.value === dataAtualFormatada) {
+            for(let i = 0; i < opcoes.length; i++) {
+                let opcao = opcoes[i];                        
+                if (opcao.value <= horaAtual) {
+                    opcao.textContent = "Indisponível";  
+                    resumo.style.display = "none" ;             
+                }
             }
+        } 
+    }
+    else if (diaDaSemana === 4 && barbeiroSelecionado === "Edson Araújo") {      
+        campoHorario.innerHTML = 
+        '<option class="opcao" value="">Selecione um horário</option>' + 
+        '<option class="opcao" value="06:00">06:00h</option>' + 
+        '<option class="opcao" value="07:00">07:00h</option>' + 
+        '<option class="opcao" value="08:00">08:00h</option>' +
+        '<option class="opcao" value="09:00">09:00h</option>' + 
+        '<option class="opcao" value="10:00">10:00h</option>' + 
+        '<option class="opcao" value="11:00">11:00h</option>' + 
+        '<option class="opcao" value="12:00">12:00h</option>' +  
+        '<option class="opcao" value="14:40">14:40h</option>' + 
+        '<option class="opcao" value="16:00">16:00h</option>' + 
+        '<option class="opcao" value="17:00">17:00h</option>' + 
+        '<option class="opcao" value="18:00">18:00h</option>' +                    
+        '<option class="opcao" value="19:00">19:00h</option>'         
+        opcoes[3].textContent = "Indisponível";
+        opcoes[3].style.display = 'none'
+        opcoes[4].textContent = "Indisponível";
+        opcoes[4].style.display = 'none'
+        opcoes[5].textContent = "Indisponível";
+        opcoes[5].style.display = 'none'
+        opcoes[6].textContent = "Indisponível";
+        opcoes[6].style.display = 'none'
+        opcoes[7].textContent = "Indisponível";
+        opcoes[7].style.display = 'none'
+        opcoes[8].textContent = "Indisponível"; 
+        opcoes[8].style.display = 'none'
+        opcoes[9].textContent = "Indisponível"; 
+        opcoes[9].style.display = 'none'
+        opcoes[10].textContent = "Indisponível"; 
+        opcoes[10].style.display = 'none'
+        opcoes[11].textContent = "Indisponível"; 
+        opcoes[11].style.display = 'none'
+        opcoes[12].textContent = "Indisponível"; 
+        opcoes[12].style.display = 'none'
+        resumo.style.display = "none" ;  
+        if (inputDia.value === dataAtualFormatada) {
+            for(let i = 0; i < opcoes.length; i++) {
+                let opcao = opcoes[i];                        
+                if (opcao.value <= horaAtual) {
+                    opcao.textContent = "Indisponível";  
+                    resumo.style.display = "none" ;             
+                }
+            }
+        } 
+    }    
+    else if (diaDaSemana === 0 || diaDaSemana === 2 || diaDaSemana === 1) {  
+        campoHorario.innerHTML = 
+        '<option class="opcao" value="">Selecione um horário</option>' + 
+        '<option class="opcao" value="06:00">06:00h</option>' + 
+        '<option class="opcao" value="07:00">07:00h</option>' + 
+        '<option class="opcao" value="08:00">08:00h</option>' +
+        '<option class="opcao" value="09:00">09:00h</option>' + 
+        '<option class="opcao" value="10:00">10:00h</option>' + 
+        '<option class="opcao" value="11:00">11:00h</option>' + 
+        '<option class="opcao" value="12:00">12:00h</option>' +  
+        '<option class="opcao" value="14:40">14:40h</option>' + 
+        '<option class="opcao" value="16:00">16:00h</option>' + 
+        '<option class="opcao" value="17:00">17:00h</option>' + 
+        '<option class="opcao" value="18:00">18:00h</option>' +                    
+        '<option class="opcao" value="19:00">19:00h</option>' 
+        opcoes[1].style.display = 'none' 
+        opcoes[1].textContent = 'Indisponível'   
+        opcoes[2].style.display = 'none'  
+        opcoes[2].textContent = 'Indisponível'         
+        opcoes[11].style.display = 'none'   
+        opcoes[11].textContent = 'Indisponível' 
+        opcoes[12].style.display = 'none'   
+        opcoes[12].textContent = 'Indisponível'  
+        if (inputDia.value === '2023-06-21' && barbeiroSelecionado === 'Edson Araújo') {                     
+            campoHorario.innerHTML = 
+            '<option class="opcao" value="">Selecione um horário</option>' + 
+            '<option class="opcao" value="06:00">06:00h</option>' + 
+            '<option class="opcao" value="07:00">07:00h</option>' + 
+            '<option class="opcao" value="08:00">08:00h</option>' +
+            '<option class="opcao" value="09:00">09:00h</option>' + 
+            '<option class="opcao" value="10:00">10:00h</option>' + 
+            '<option class="opcao" value="11:00">11:00h</option>' + 
+            '<option class="opcao" value="12:00">12:00h</option>' +  
+            '<option class="opcao" value="14:40">14:40h</option>' + 
+            '<option class="opcao" value="16:00">16:00h</option>' + 
+            '<option class="opcao" value="17:00">17:00h</option>' + 
+            '<option class="opcao" value="18:00">18:00h</option>' +                    
+            '<option class="opcao" value="19:00">19:00h</option>' 
+            opcoes[1].style.display = 'none' 
+            opcoes[1].textContent = 'Indisponível'   
+            opcoes[2].style.display = 'none'  
+            opcoes[2].textContent = 'Indisponível'
+            opcoes[12].style.display = 'none'   
+            opcoes[12].textContent = 'Indisponível' 
         }
+        if (inputDia.value === dataAtualFormatada) {
+            for(let i = 0; i < opcoes.length; i++) {
+                let opcao = opcoes[i];                        
+                if (opcao.value <= horaAtual) {
+                    opcao.textContent = "Indisponível";  
+                    resumo.style.display = "none" ;             
+                }
+            }
+        } 
     }
-
-    else if (diaDaSemana === 0 || diaDaSemana === 2) {         
-        opcoes[0].textContent = "Selecione um horário";
-        opcoes[1].textContent = "8:00h";
-        opcoes[2].textContent = "9:00h";
-        opcoes[3].textContent = "10:00h";
-        opcoes[4].textContent = "11:00h";
-        opcoes[5].textContent = "12:00h";
-        opcoes[6].textContent = "14:40h";
-        opcoes[7].textContent = "16:00h";
-        opcoes[8].textContent = "17:00h";        
-        opcoes[9].textContent = "Indisponível";
-        opcoes[10].textContent = "Indisponível";
-        resumo.style.display = "none" ;          
+    else if (diaDaSemana === 3 && barbeiroSelecionado === 'Edson Araújo') {     
+        campoHorario.innerHTML = 
+        '<option class="opcao" value="">Selecione um horário</option>' + 
+        '<option class="opcao" value="06:00">06:00h</option>' + 
+        '<option class="opcao" value="07:00">07:00h</option>' + 
+        '<option class="opcao" value="08:00">08:00h</option>' +
+        '<option class="opcao" value="09:00">09:00h</option>' + 
+        '<option class="opcao" value="10:00">10:00h</option>' + 
+        '<option class="opcao" value="11:00">11:00h</option>' + 
+        '<option class="opcao" value="12:00">12:00h</option>' +  
+        '<option class="opcao" value="14:40">14:40h</option>' + 
+        '<option class="opcao" value="16:00">16:00h</option>' + 
+        '<option class="opcao" value="17:00">17:00h</option>' + 
+        '<option class="opcao" value="18:00">18:00h</option>' +                    
+        '<option class="opcao" value="19:00">19:00h</option>' 
+        opcoes[1].style.display = 'none' 
+        opcoes[1].textContent = 'Indisponível'   
+        opcoes[2].style.display = 'none'  
+        opcoes[2].textContent = 'Indisponível'
+        opcoes[6].style.display = 'none'  
+        opcoes[6].textContent = 'Indisponível'
+        opcoes[8].style.display = 'none'  
+        opcoes[8].textContent = 'Indisponível'         
+        if (inputDia.value === '2023-06-22') {     
+            console.log("inputDia.value === '2023-06-22'")    
+            campoHorario.innerHTML = 
+            '<option class="opcao" value="">Selecione um horário</option>' + 
+            '<option class="opcao" value="06:00">06:00h</option>' + 
+            '<option class="opcao" value="07:00">07:00h</option>' + 
+            '<option class="opcao" value="08:00">08:00h</option>' +
+            '<option class="opcao" value="09:00">09:00h</option>' + 
+            '<option class="opcao" value="10:00">10:00h</option>' + 
+            '<option class="opcao" value="11:00">11:00h</option>' + 
+            '<option class="opcao" value="12:00">12:00h</option>' +  
+            '<option class="opcao" value="14:40">14:40h</option>' + 
+            '<option class="opcao" value="16:00">16:00h</option>' + 
+            '<option class="opcao" value="17:00">17:00h</option>' + 
+            '<option class="opcao" value="18:00">18:00h</option>' +                    
+            '<option class="opcao" value="19:00">19:00h</option>'  
+            opcoes[6].style.display = 'none'  
+            opcoes[6].textContent = 'Indisponível'
+            opcoes[8].style.display = 'none'  
+            opcoes[8].textContent = 'Indisponível'            
+        }
+        if (inputDia.value === dataAtualFormatada) {
+            for(let i = 0; i < opcoes.length; i++) {
+                let opcao = opcoes[i];                        
+                if (opcao.value <= horaAtual) {
+                    opcao.textContent = "Indisponível";  
+                    resumo.style.display = "none" ;             
+                }
+            }
+        } 
     }
-
-    else {  
-        opcoes[0].textContent = "Selecione um horário";
-        opcoes[1].textContent = "8:00h";
-        opcoes[2].textContent = "9:00h";
-        opcoes[3].textContent = "10:00h";
-        opcoes[4].textContent = "11:00h";
-        opcoes[5].textContent = "12:00h";
-        opcoes[6].textContent = "14:40h";
-        opcoes[7].textContent = "16:00h";
-        opcoes[8].textContent = "17:00h";        
-        opcoes[9].textContent = "18:00h";
-        opcoes[10].textContent = "19:00h";                    
+    else { 
+        console.log("else") 
+        campoHorario.innerHTML = 
+        '<option class="opcao" value="">Selecione um horário</option>' + 
+        '<option class="opcao" value="06:00">06:00h</option>' + 
+        '<option class="opcao" value="07:00">07:00h</option>' + 
+        '<option class="opcao" value="08:00">08:00h</option>' +
+        '<option class="opcao" value="09:00">09:00h</option>' + 
+        '<option class="opcao" value="10:00">10:00h</option>' + 
+        '<option class="opcao" value="11:00">11:00h</option>' + 
+        '<option class="opcao" value="12:00">12:00h</option>' +  
+        '<option class="opcao" value="14:40">14:40h</option>' + 
+        '<option class="opcao" value="16:00">16:00h</option>' + 
+        '<option class="opcao" value="17:00">17:00h</option>' + 
+        '<option class="opcao" value="18:00">18:00h</option>' +                    
+        '<option class="opcao" value="19:00">19:00h</option>'      
+        opcoes[1].style.display = 'none' 
+        opcoes[1].textContent = 'Indisponível'   
+        opcoes[2].style.display = 'none'  
+        opcoes[2].textContent = 'Indisponível'                    
         resumo.style.display = "none";          
     }
 }
